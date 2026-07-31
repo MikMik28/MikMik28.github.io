@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ashley Mae O. Bernardez | Contact</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="backdrop">
+        <div class="container">
+            <header class="nav">
+                <div class="brand">Ashley Mae O. Bernardez</div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="hobbies.html">Hobbies</a>
+                    <a class="active" href="contact.html">Contact</a>
+                </div>
+            </header>
+
+            <section class="panel page">
+                <h1>Contact Me</h1>
+                <p>
+                    Feel free to reach out to me. I'd love to hear from you!
+                </p>
+
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <strong>Social Media</strong>
+                        <p style="color: var(--muted); margin: 4px 0 0;">
+                            <a href="https://www.instagram.com/nott_kuliit" target="_blank" rel="noopener noreferrer">@nott_kuliit</a>
+                        </p>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Location</strong>
+                        <p style="color: var(--muted); margin: 4px 0 0;">Sabangan and Bauko, Mountain Province</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footer">© 2026 Ashley Mae O. Bernardez</div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // Create interactive particles that scatter on mouse movement
+    const backdrop = document.querySelector('.backdrop');
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    
+    const particles = [];
+
+    // Create particle elements
+    function createParticles() {
+        const particleCount = 30;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'interactive-particle';
+            
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            
+            particle.style.left = startX + 'px';
+            particle.style.top = startY + 'px';
+            
+            particles.push({
+                element: particle,
+                x: startX,
+                y: startY,
+                baseX: startX,
+                baseY: startY,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                offsetX: 0,
+                offsetY: 0
+            });
+            
+            backdrop.appendChild(particle);
+        }
+    }
+
+    // Animate particles with floating and cursor interaction
+    function animateParticles() {
+        const time = Date.now() * 0.001;
+        
+        particles.forEach((p) => {
+            // Floating animation using sine waves
+            const floatX = Math.sin(time * 0.5 + p.x) * 20;
+            const floatY = Math.cos(time * 0.3 + p.y) * 20;
+            
+            p.element.style.left = (p.baseX + floatX + p.offsetX) + 'px';
+            p.element.style.top = (p.baseY + floatY + p.offsetY) + 'px';
+        });
+        
+        requestAnimationFrame(animateParticles);
+    }
+
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        particles.forEach((p) => {
+            const rect = p.element.getBoundingClientRect();
+            const partX = rect.left + rect.width / 2;
+            const partY = rect.top + rect.height / 2;
+
+            const distance = Math.sqrt(Math.pow(mouseX - partX, 2) + Math.pow(mouseY - partY, 2));
+            const angle = Math.atan2(partY - mouseY, partX - mouseX);
+
+            if (distance < 200) {
+                const force = (200 - distance) / 200;
+                p.offsetX = Math.cos(angle) * force * 150;
+                p.offsetY = Math.sin(angle) * force * 150;
+            } else {
+                p.offsetX *= 0.9;
+                p.offsetY *= 0.9;
+            }
+        });
+    });
+
+    createParticles();
+    animateParticles();
+</script>
+
+</html>
