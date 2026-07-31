@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ashley Mae O. Bernardez | Contact</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Minimal, elegant intro inspired by provided image - neutral palette, serif logotype */
+        #intro-overlay{
+            position:fixed;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background: linear-gradient(180deg,#fbfaf9 0%, #f6f5f4 100%);
+            z-index:9999;
+            pointer-events:auto;
+            transition:opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1);
+            opacity:1;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        /* Subtle vignette to match photo */
+        #intro-overlay::before{
+            content: '';
+            position:absolute;
+            inset:0;
+            background: radial-gradient(closest-side, rgba(0,0,0,0) 68%, rgba(0,0,0,0.03));
+            pointer-events:none;
+        }
+
+        #intro-overlay.intro-hidden{ opacity:0; transform: translateY(6px) scale(0.998); pointer-events:none; }
+
+        .intro-content{
+            position:relative;
+            text-align:center;
+            color:#111;
+            z-index:1;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:14px;
+        }
+
+        /* Watermark rounded square */
+        .intro-mark{
+            width:96px;
+            height:96px;
+            border-radius:18px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background: rgba(0,0,0,0.03);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+            transform: translateY(6px) scale(0.98);
+            opacity:0;
+            transition: opacity 520ms ease, transform 520ms cubic-bezier(.2,.9,.2,1);
+        }
+
+        .intro-mark.show{ opacity:1; transform: translateY(0) scale(1); }
+
+        .intro-mark .mark-text{
+            font-family: 'Playfair Display', serif;
+            font-weight:700;
+            font-size:22px;
+            color: rgba(20,20,20,0.18);
+            letter-spacing:0.08em;
+        }
+
+        /* Logotype: uppercase serif, wide tracking */
+        .intro-logo{
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 64px);
+            letter-spacing: 0.26em;
+            font-weight:700;
+            text-transform:uppercase;
+            color:#1b1b1b;
+            display:inline-block;
+            line-height:1;
+        }
+
+        .intro-logo .letter{ display:inline-block; opacity:0; transform: translateY(10px) scale(0.98); animation: logoLetterIn 540ms cubic-bezier(.2,.9,.2,1) forwards; }
+        @keyframes logoLetterIn{ to { opacity:1; transform: translateY(0) scale(1); } }
+
+        .intro-sub{
+            font-family: 'Montserrat', system-ui, sans-serif;
+            font-size: 13px;
+            color: rgba(27,27,27,0.6);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity:0;
+            transform: translateY(6px);
+            animation: subIn 560ms cubic-bezier(.2,.9,.2,1) 680ms forwards;
+        }
+
+        @keyframes subIn{ to { opacity:1; transform: translateY(0); } }
+
+        /* fade-out helper when hiding */
+        .intro-hide-fade{ transition: opacity 420ms ease, transform 420ms ease; opacity:0; transform: translateY(4px) scale(0.998); }
+
+        @media (max-width:520px){
+            .intro-mark{ width:72px; height:72px; border-radius:12px }
+            .intro-logo{ font-size: clamp(28px, 8vw, 44px); letter-spacing:0.16em }
+            .intro-sub{ font-size:12px }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="intro-overlay" aria-hidden="true">
+        <div class="intro-content">
+            <div class="intro-mark" aria-hidden="true"><div class="mark-text">AM</div></div>
+            <div class="intro-logo">ASHLEY MAE</div>
+            <div class="intro-sub">Criminology Student • Igorot Portfolio</div>
+        </div>
+    </div>
+    <div class="backdrop">
+        <div class="container">
+            <header class="nav">
+                <div class="brand">Ashley Mae O. Bernardez</div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="hobbies.html">Hobbies</a>
+                    <a class="active" href="contact.html">Contact</a>
+                </div>
+            </header>
+
+            <section class="panel page">
+                <h1>Contact Me</h1>
+                <p>
+                    Feel free to reach out to me. I'd love to hear from you!
+                </p>
+
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <strong>Social Media</strong>
+                        <p style="color: var(--muted); margin: 4px 0 0;">
+                            <a href="https://www.instagram.com/nott_kuliit" target="_blank" rel="noopener noreferrer">@nott_kuliit</a>
+                        </p>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Location</strong>
+                        <p style="color: var(--muted); margin: 4px 0 0;">Sabangan and Bauko, Mountain Province</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footer">© 2026 Ashley Mae O. Bernardez</div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // Minimal intro that matches the provided mock — watermark, large serif wordmark, subtile subtitle
+    (function(){
+        const overlay = document.getElementById('intro-overlay');
+        if (!overlay) return;
+        const logo = overlay.querySelector('.intro-logo');
+        const sub = overlay.querySelector('.intro-sub');
+        const mark = overlay.querySelector('.intro-mark');
+
+        // Split letters for staggered reveal
+        function splitLetters(el){
+            if (!el) return;
+            const text = el.textContent.trim();
+            el.textContent = '';
+            const frag = document.createDocumentFragment();
+            const letters = text.split('');
+            // add small spacer between letters (we keep original spaces)
+            letters.forEach((ch, i) => {
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = ch;
+                span.style.animationDelay = (i * 70) + 'ms';
+                frag.appendChild(span);
+            });
+            el.appendChild(frag);
+        }
+
+        splitLetters(logo);
+
+        // play watermark then letters then subtitle
+        requestAnimationFrame(() => {
+            // show watermark
+            if (mark) mark.classList.add('show');
+
+            // reveal letters by letting CSS animation run (animationDelay set)
+            // reveal subtitle after letters
+            const totalLetters = (logo.textContent || '').length;
+            const lettersDuration = 70 * totalLetters + 640; // conservative
+            const SUB_DELAY = Math.max(700, lettersDuration);
+
+            setTimeout(() => {
+                if (sub) sub.style.opacity = '1';
+                if (sub) sub.style.transform = 'translateY(0)';
+            }, SUB_DELAY);
+
+            // auto-hide after a short pause
+            const AUTO_HIDE = SUB_DELAY + 900;
+            const hideTimer = setTimeout(() => hideOverlay(), AUTO_HIDE);
+
+            // allow user to skip
+            ['click','keydown','touchstart'].forEach(evt => {
+                document.addEventListener(evt, () => { clearTimeout(hideTimer); hideOverlay(); }, { once: true, passive: true });
+            });
+        });
+
+        function hideOverlay(){
+            if (!overlay) return;
+            overlay.classList.add('intro-hidden');
+            overlay.addEventListener('transitionend', () => {
+                if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            }, { once: true });
+        }
+    })();
+</script>
+
+</html>
